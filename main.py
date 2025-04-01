@@ -1,5 +1,7 @@
 import logging
 import asyncio
+import pytz
+from datetime import datetime
 from pyrogram import Client
 from aiohttp import web
 from handlers import start, reaction_game, ai_reactions, connect, force_sub
@@ -20,9 +22,19 @@ async def start_fake_server():
     site = web.TCPSite(runner, "0.0.0.0", PORT)
     await site.start()
 
+# Function to check time sync
+def check_time_sync():
+    # Get the server time (in UTC)
+    utc_now = datetime.now(pytz.utc)
+    logging.info(f"Current UTC Time: {utc_now}")
+
 # Bot Main Function
 async def main():
     logging.info("Bot is starting...")
+
+    # Check server time synchronization
+    check_time_sync()
+
     await bot.start()
     await start_fake_server()
 
