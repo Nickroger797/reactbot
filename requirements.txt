@@ -2,3 +2,4 @@ pyrogram
 aiohttp
 python-dotenv
 pymongo
+tgcrypto
