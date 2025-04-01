@@ -3,10 +3,10 @@ import logging
 import os
 from aiohttp import web
 from handlers import start, reaction_game, ai_reactions, connect, force_sub
-from config import BOT_TOKEN, LOG_CHANNEL, FORCE_SUB_CHANNEL, PORT
+from config import BOT_TOKEN, LOG_CHANNEL, FORCE_SUB_CHANNEL, PORT, API_ID, API_HASH
 
-# Pyrogram Client
-bot = Client("reaction_bot", bot_token=BOT_TOKEN)
+# Pyrogram Client with API_ID and API_HASH
+bot = Client("reaction_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
 # Fake Web Server for Koyeb
 async def ping(request):
