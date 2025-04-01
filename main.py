@@ -12,7 +12,9 @@ bot = Client("reaction_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOK
 
 # Fake Web Server for Koyeb (Optional for health check)
 async def ping(request):
-    return web.Response(text="Bot is running!")
+    # Get the current UTC time and send in the response
+    utc_now = datetime.now(pytz.utc)
+    return web.Response(text=f"Bot is running! Current UTC Time: {utc_now}")
 
 async def start_fake_server():
     app = web.Application()
