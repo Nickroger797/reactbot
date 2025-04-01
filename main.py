@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import UserNotParticipant
-from config import API_ID, API_HASH, BOT_TOKEN, FORCE_SUB_CHANNEL, OWNER_GROUP_LINK, BOT_USERNAME
+from config import API_ID, API_HASH, BOT_TOKEN, FORCE_SUB_CHANNEL
 
 app = Client("reaction_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
