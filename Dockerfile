@@ -1,18 +1,23 @@
-# Base image for Python
 FROM python:3.9-slim
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy requirements.txt and install dependencies
+COPY requirements.txt /app/requirements.txt
+RUN pip install -r requirements.txt
 
-# Copy application code
-COPY . /app/
+# Copy the rest of the application code
+COPY . /app
 
-# Expose the port (same as in config.py)
-EXPOSE 8080
+# Set environment variables for Koyeb
+ENV API_ID=${API_ID}
+ENV API_HASH=${API_HASH}
+ENV BOT_TOKEN=${BOT_TOKEN}
+ENV LOG_CHANNEL=${LOG_CHANNEL}
+ENV FORCE_SUB_CHANNEL=${FORCE_SUB_CHANNEL}
+ENV MONGO_URI=${MONGO_URI}
+ENV PORT=${PORT}
 
 # Command to run the bot
 CMD ["python", "main.py"]
