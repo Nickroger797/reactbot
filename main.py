@@ -31,6 +31,8 @@ async def main():
     await bot.start()
     await start_fake_server()
 
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(main())
+async def main():
+    await bot.start()
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(main())
