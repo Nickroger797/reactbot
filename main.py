@@ -32,5 +32,4 @@ async def main():
     await start_fake_server()
 
 if __name__ == "__main__":
-    import asyncio
-    asyncio.run(main())
+    bot.run(main())  # Use bot.run() instead of asyncio.run()
