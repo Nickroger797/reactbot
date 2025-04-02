@@ -1,14 +1,10 @@
-FROM python:3.9-slim
+FROM python:3.9  # <- slim हटाकर full python image use करो
 
-# Set the working directory
 WORKDIR /app
 
-# Copy and install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code
 COPY . .
 
-# Command to run the bot
-CMD ["python", "main.py"]
+CMD ["python3", "/app/main.py"]
