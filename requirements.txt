@@ -1,4 +1,4 @@
-pyrogram==2.0.106  # Telegram API Client
+pyrogram  # Telegram API Client
 tgcrypto  # Fast encryption for Pyrogram
 aiohttp  # Asynchronous HTTP requests
 pymongo[srv]  # MongoDB support with SRV protocol
