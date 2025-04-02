@@ -1,4 +1,5 @@
-FROM python:3.9  # <- slim हटाकर full python image use करो
+# Use full Python image instead of slim
+FROM python:3.9  
 
 WORKDIR /app
 
