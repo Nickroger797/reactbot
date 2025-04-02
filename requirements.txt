@@ -1,5 +1,6 @@
-pyrogram==2.0.106
-tgcrypto
-aiohttp
-pymongo
-python-dotenv
+pyrogram==2.0.106  # Telegram API Client
+tgcrypto  # Fast encryption for Pyrogram
+aiohttp  # Asynchronous HTTP requests
+pymongo[srv]  # MongoDB support with SRV protocol
+python-dotenv  # Load environment variables
+asyncio  # Async operations (optional but recommended)
