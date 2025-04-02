@@ -1,9 +1,10 @@
 import asyncio
 import logging
-from pyrogram import Client, idle
+from pyrogram import Client
 from handlers import start, reaction_game, ai_reactions, connect, force_sub
 from config import BOT_TOKEN, LOG_CHANNEL, FORCE_SUB_CHANNEL, API_ID, API_HASH
-from db import store_new_user  # Import MongoDB function
+from db import store_new_user  
+import server  # Import server.py for fake web server (Koyeb health check)
 
 # Logging setup
 logging.basicConfig(level=logging.INFO)
@@ -24,9 +25,13 @@ async def main():
     logger.info("🚀 Bot is starting...")
     await bot.start()
     logger.info("✅ Bot started successfully!")
-    await idle()  # Keeps the bot running
-    await bot.stop()  # Stops the bot gracefully
 
-# Run the bot using asyncio.run (Best practice)
+    # Start the fake web server (for Koyeb health check)
+    await server.start_server()
+
+    # Keep the bot running
+    await asyncio.Event().wait()  # Infinite loop to keep running
+
+# Run the bot using asyncio.run
 if __name__ == "__main__":
     asyncio.run(main())
