@@ -10,24 +10,16 @@ import server  # Fake server for Koyeb
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# ✅ Pyrogram Client with MongoDB Session (Fix)
+# ✅ Pyrogram Client with MongoDB Session (Fixed)
 SESSION_STRING = os.getenv("SESSION_STRING")  # Fetch session from environment
-if SESSION_STRING:
-    bot = Client(
-        name="reaction_bot",
-        api_id=API_ID,
-        api_hash=API_HASH,
-        bot_token=BOT_TOKEN,
-        session_string=SESSION_STRING  # Use existing MongoDB session if available
-    )
-else:
-    bot = Client(
-        name="reaction_bot",
-        api_id=API_ID,
-        api_hash=API_HASH,
-        bot_token=BOT_TOKEN,
-        storage="memory"  # Avoid SQLite issues
-    )
+
+bot = Client(
+    name="reaction_bot",
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token=BOT_TOKEN,
+    session_string=SESSION_STRING if SESSION_STRING else None  # Use session if available
+)
 
 # ✅ Start Command Handler
 @bot.on_message(filters.command("start"))
