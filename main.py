@@ -1,48 +1,26 @@
-import asyncio
 import logging
-import db
-from pyrogram import Client, filters
-from config import BOT_TOKEN, API_ID, API_HASH, MONGO_URI
-from pymongo import MongoClient
+from pyrogram import Client
+from handlers import start, reaction_game, ai_reactions, connect, force_sub
+from config import BOT_TOKEN, LOG_CHANNEL, FORCE_SUB_CHANNEL, API_ID, API_HASH
+from db import store_new_user  
+import server  # Import server.py for fake web server (Koyeb health check)
 
-# ✅ Logging setup
-logging.basicConfig(
-    level=logging.DEBUG,  
-    format="%(asctime)s - [%(levelname)s] - %(message)s",
-)
+# Logging setup
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# ✅ MongoDB Connection
-try:
-    client = MongoClient(MONGO_URI)
-    db = client["reaction_bot"]
-    users_col = db["users"]
-    logs_col = db["conversion_logs"]
-    client.server_info()
-    print("\u2705 MongoDB Connected Successfully!")
-except Exception as e:
-    print("\u274c MongoDB Connection Error:", e)
-    exit(1)
+# Pyrogram Client
+bot = Client("reaction_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
-# ✅ Check if Variables Exist
-if not all([BOT_TOKEN, API_ID, API_HASH, MONGO_URI]):
-    logger.critical("❌ BOT_TOKEN, API_ID, API_HASH missing! Check config.py")
-    exit(1)
+# Function to log new users in MongoDB
+def log_new_user(user_id, username):
+    try:
+        store_new_user(user_id, username)
+    except Exception as e:
+        logger.error(f"Failed to log user {user_id}: {e}")
 
-# ✅ Pyrogram Client
-bot = Client(
-    name="reaction_bot",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=BOT_TOKEN
-)
-
-# ✅ Start Command Handler
-@bot.on_message(filters.command("start"))
-async def start(client, message):
-    logger.info(f"📩 Received /start from {message.from_user.id}")
-    await message.reply_text("👋 Hello! I'm alive and working!")
-
+# Run the bot
 if __name__ == "__main__":
     logger.info("🚀 Bot is starting...")
-    bot.run()  # ✅ Correct way to start Pyrogram bot
+    server.start_server()  # Start the fake web server (for Koyeb health check)
+    bot.run()
