@@ -14,8 +14,8 @@ logger = logging.getLogger(__name__)
 
 # ✅ MongoDB Connection
 try:
-    client = MongoClient(MONGO_URL)
-    db = client["video_converter"]
+    client = MongoClient(MONGO_URI)
+    db = client["reaction_bot"]
     users_col = db["users"]
     logs_col = db["conversion_logs"]
     client.server_info()
