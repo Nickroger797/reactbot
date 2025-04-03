@@ -2,6 +2,8 @@ import asyncio
 import logging
 from pyrogram import Client, filters
 from config import BOT_TOKEN, API_ID, API_HASH
+from pymongo import MongoClient
+import db
 
 # ✅ Logging setup
 logging.basicConfig(
@@ -9,6 +11,18 @@ logging.basicConfig(
     format="%(asctime)s - [%(levelname)s] - %(message)s",
 )
 logger = logging.getLogger(__name__)
+
+# ✅ MongoDB Connection
+try:
+    client = MongoClient(MONGO_URL)
+    db = client["video_converter"]
+    users_col = db["users"]
+    logs_col = db["conversion_logs"]
+    client.server_info()
+    print("\u2705 MongoDB Connected Successfully!")
+except Exception as e:
+    print("\u274c MongoDB Connection Error:", e)
+    exit(1)
 
 # ✅ Check if Variables Exist
 if not all([BOT_TOKEN, API_ID, API_HASH]):
