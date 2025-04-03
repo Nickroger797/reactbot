@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 import os
+from config import MONGO_URI
 
 # MongoDB Configuration
 MONGO_URI = os.getenv("MONGO_URI")
