@@ -3,7 +3,6 @@ import logging
 from pyrogram import Client, filters
 from config import BOT_TOKEN, API_ID, API_HASH, MONGO_URI
 from pymongo import MongoClient
-import db
 
 # ✅ Logging setup
 logging.basicConfig(
@@ -37,25 +36,12 @@ bot = Client(
     bot_token=BOT_TOKEN
 )
 
-# ✅ Start Command Handler (With Debugging)
+# ✅ Start Command Handler
 @bot.on_message(filters.command("start"))
 async def start(client, message):
     logger.info(f"📩 Received /start from {message.from_user.id}")
     await message.reply_text("👋 Hello! I'm alive and working!")
 
-# ✅ Main function
-async def main():
-    try:
-        logger.info("🚀 Bot is starting...")
-        await bot.start()
-        me = await bot.get_me()  # Check bot identity
-        logger.info(f"✅ Bot started as {me.first_name} (@{me.username})")
-        await asyncio.Event().wait()  # Keep bot running
-    except Exception as e:
-        logger.critical(f"❌ Main execution failed: {e}", exc_info=True)
-
 if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except Exception as e:
-        logger.critical(f"❌ Asyncio failed: {e}", exc_info=True)
+    logger.info("🚀 Bot is starting...")
+    bot.run()  # ✅ Correct way to start Pyrogram bot
