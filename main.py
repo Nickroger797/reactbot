@@ -1,7 +1,7 @@
 import asyncio
 import logging
 from pyrogram import Client, filters
-from config import BOT_TOKEN, API_ID, API_HASH
+from config import BOT_TOKEN, API_ID, API_HASH, MONGO_URI
 from pymongo import MongoClient
 import db
 
@@ -25,7 +25,7 @@ except Exception as e:
     exit(1)
 
 # ✅ Check if Variables Exist
-if not all([BOT_TOKEN, API_ID, API_HASH]):
+if not all([BOT_TOKEN, API_ID, API_HASH, MONGO_URI]):
     logger.critical("❌ BOT_TOKEN, API_ID, API_HASH missing! Check config.py")
     exit(1)
 
