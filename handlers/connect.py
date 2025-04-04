@@ -1,6 +1,3 @@
-from pyrogram import Client
-
-@Client.on_message()
 async def connect_handler(client, message):
     if message.text.startswith("/connect"):
         group_id = message.text.split()[1]
