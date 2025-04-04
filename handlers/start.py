@@ -2,7 +2,6 @@ from pyrogram import Client
 from db import store_new_user  
 from messages import log_new_user_message  
 from config import LOG_CHANNEL, FORCE_SUB_CHANNEL  
-from commands import start_command  # ✅ Command को Import किया
 
 async def is_subscribed(client, user_id):
     """Check if user is subscribed to the Force Sub channel."""
