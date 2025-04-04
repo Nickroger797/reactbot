@@ -3,3 +3,4 @@ tgcrypto>=1.2.5  # For fast encryption
 aiohttp>=3.8.5  # Asynchronous HTTP requests
 pymongo[srv]>=4.5.0  # MongoDB support with SRV protocol
 python-dotenv>=1.0.0  # Load environment variables
+flask
