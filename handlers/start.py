@@ -1,3 +1,6 @@
+from pyrogram import filters
+from pyrogram.types import Message
+from db import store_new_user  # ✅ Missing import fixed
 from messages import start_message
 
 async def start_handler(client, message):
