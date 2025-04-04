@@ -1,6 +1,4 @@
-from pyrogram import Client
 
-@Client.on_message()
 async def force_sub_handler(client, message):
     user_id = message.from_user.id
     if message.text.startswith("/start"):
