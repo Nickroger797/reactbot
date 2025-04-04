@@ -1,3 +1,7 @@
+from pyrogram import filters
+from pyrogram.types import Message
+from config import FORCE_SUB_CHANNEL 
+
 async def force_sub_handler(client, message):
     user_id = message.from_user.id
     if message.text.startswith("/start"):
