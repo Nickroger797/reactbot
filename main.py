@@ -30,8 +30,8 @@ if __name__ == "__main__":
     logger.info("🚀 Bot is starting...")
     register_handlers(bot) 
     
-# Start the web server in a separate thread
-threading.Thread(target=start_web_server, daemon=True).start()
+    # Start the web server in a separate thread
+    threading.Thread(target=start_web_server, daemon=True).start()
 
     # Start the bot
     bot.run()
