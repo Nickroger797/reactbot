@@ -1,10 +1,9 @@
 import logging
 import threading
-import asyncio
 from pyrogram import Client, filters
-from config import BOT_TOKEN, API_ID, API_HASH
+from config import BOT_TOKEN, API_ID, API_HASH, MONGOURI
 from db import store_new_user  
-import server  # Import fake web server for Koyeb health check
+import server  # Web server import
 
 # ✅ Logging setup
 logging.basicConfig(level=logging.INFO)
@@ -31,7 +30,7 @@ async def start(client, message):
 
 # ✅ Start fake web server in a separate thread
 def start_web_server():
-    asyncio.run(server.start_server())  # Correctly await the coroutine
+    server.start_server()  # अब यह सही से चलेगा
 
 # ✅ Run the bot
 if __name__ == "__main__":
