@@ -19,7 +19,8 @@ async def handle_start(client, message):
     # ✅ Force Sub Check
     if not await is_subscribed(client, user_id):
         return await message.reply("❌ **पहले हमारे चैनल को जॉइन करें!**\n"
-                                   f"👉 [Join Now](https://t.me/YourChannel)")
+                                   f"👉 [Join Now](https://t.me/YourChannel)",
+                                   disable_web_page_preview=True)
 
     # ✅ User को Database में Save करो
     store_new_user(user_id, username)
