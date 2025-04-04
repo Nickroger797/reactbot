@@ -1,5 +1,5 @@
 from pyrogram import filters, handlers
-from handlers.start import start_handler
+from handlers.start import handle_start
 from handlers.reaction_game import reaction_game_handler
 from handlers.ai_reactions import ai_reaction_handler
 from handlers.connect import connect_handler
