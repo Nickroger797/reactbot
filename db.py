@@ -3,15 +3,18 @@ import os
 from config import MONGO_URI
 
 # MongoDB Configuration
-MONGO_URI = os.getenv("MONGO_URI")
+MONGO_URI = os.getenv("MONGO_URI") or MONGO_URI  # Ensures ENV variable or config value
 client = MongoClient(MONGO_URI)
 db = client["reaction_bot_db"]
 users_collection = db["users"]
 
-# Function to store a new user in the database (Avoids duplicates)
+# Function to store a new user in the database (Avoids duplicates & updates username)
 def store_new_user(user_id, username):
-    if not users_collection.find_one({"user_id": user_id}):  # Check if user already exists
-        users_collection.insert_one({"user_id": user_id, "username": username, "reactions": []})
+    users_collection.update_one(
+        {"user_id": user_id},
+        {"$set": {"username": username}, "$setOnInsert": {"reactions": []}},
+        upsert=True  # Insert if not exists, else update username
+    )
 
 # Function to fetch all users as a list
 def get_all_users():
