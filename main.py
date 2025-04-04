@@ -1,7 +1,7 @@
 import logging
 import threading
 from pyrogram import Client, filters
-from config import BOT_TOKEN, API_ID, API_HASH, MONGOURI
+from config import BOT_TOKEN, API_ID, API_HASH, MONGO_URI
 from db import store_new_user  
 import server  # Web server import
 
