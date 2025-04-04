@@ -2,6 +2,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 from config import FORCE_SUB_CHANNEL
 from pyrogram.errors import UserNotParticipant
+from message import WELCOME_MESSAGE  # 👈 यहाँ import किया
 
 async def force_sub_handler(client, message: Message):
     user_id = message.from_user.id
@@ -10,10 +11,10 @@ async def force_sub_handler(client, message: Message):
         member = await client.get_chat_member(FORCE_SUB_CHANNEL, user_id)
         if member.status not in ["member", "administrator", "creator"]:
             await message.reply(f"Please join the mandatory channel to use the bot:\nhttps://t.me/{FORCE_SUB_CHANNEL}")
-            return  # 👈 यहाँ return करने से आगे का कोड execute नहीं होगा!
+            return
     except UserNotParticipant:
         await message.reply(f"Please join the mandatory channel to use the bot:\nhttps://t.me/{FORCE_SUB_CHANNEL}")
-        return  # 👈 यहाँ return करने से आगे का कोड execute नहीं होगा!
-    
-    # If user is a member, show welcome message
-    await message.reply("Welcome to the Reaction Bot! 🤖\nHere are the commands you can use:\n1. /help - Get a list of all commands.\n2. /about - Information about the bot.\n3. /connect - To connect this bot to a group.\n4. /reaction - Use reaction commands.\nEnjoy!")
+        return
+
+    # If user is a member, send welcome message from message.py
+    await message.reply(WELCOME_MESSAGE)
