@@ -1,12 +1,20 @@
-from aiohttp import web
+from flask import Flask
+import logging
 
-async def ping(request):
-    return web.Response(text="Bot is running!")
+app = Flask(__name__)
 
-async def start_server():
-    app = web.Application()
-    app.router.add_get("/", ping)
-    runner = web.AppRunner(app)
-    await runner.setup()
-    site = web.TCPSite(runner, "0.0.0.0", 8080)  # Koyeb Default Port 8080
-    await site.start()
+# ✅ Logging Setup
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is alive!", 200
+
+# ✅ Start Web Server Function
+def start_server():
+    logger.info("🌐 Starting Web Server on port 8080...")
+    app.run(host="0.0.0.0", port=8080, threaded=True)
+
+if __name__ == "__main__":
+    start_server()
