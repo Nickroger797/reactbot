@@ -1,7 +1,5 @@
-from pyrogram import Client
 from messages import start_message
 
-@Client.on_message()
 async def start_handler(client, message):
     user_id = message.from_user.id
     username = message.from_user.username
