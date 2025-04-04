@@ -17,4 +17,4 @@ async def force_sub_handler(client, message: Message):
         return
 
     # If user is a member, send welcome message from message.py
-    await message.reply(WELCOME_MESSAGE)
+    await message.reply(start_message)
