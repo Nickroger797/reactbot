@@ -6,7 +6,7 @@ from handlers.connect import connect_handler
 
 def register_handlers(bot):
     # /start command (Force Sub check + Welcome + DB)
-    bot.add_handler(handlers.MessageHandler(start_handler, filters.command("start")))
+    bot.add_handler(handlers.MessageHandler(handle_start, filters.command("start")))
 
     # /reaction command
     bot.add_handler(handlers.MessageHandler(reaction_game_handler, filters.command("reaction")))
