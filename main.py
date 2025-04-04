@@ -2,7 +2,6 @@ import logging
 import threading
 from pyrogram import Client
 from command import register_handlers
-from handlers import start, reaction_game, ai_reactions, connect, force_sub
 from config import BOT_TOKEN, LOG_CHANNEL, FORCE_SUB_CHANNEL, API_ID, API_HASH
 from db import store_new_user  
 import server  # Import server.py for fake web server (Koyeb health check)
