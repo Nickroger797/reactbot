@@ -8,6 +8,12 @@ Here are the commands you can use:
 Enjoy!
 """
 
+log_new_user_message = (
+    "✅ **New user started the bot!**\n\n"
+    "**Username:** [{username}](tg://user?id={user_id})\n"
+    "**User ID:** `{user_id}`"
+)
+
 help_message = """
 Here are the commands for this bot:
 1. /start - Start the bot.
