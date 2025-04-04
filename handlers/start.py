@@ -1,6 +1,6 @@
 from pyrogram import Client
 from db import store_new_user  
-from messages import log_new_user_message  
+from messages import log_new_user_message, start_message  # ✅ Start Message Import किया
 from config import LOG_CHANNEL, FORCE_SUB_CHANNEL  
 
 async def is_subscribed(client, user_id):
@@ -18,9 +18,12 @@ async def handle_start(client, message):
 
     # ✅ Force Sub Check
     if not await is_subscribed(client, user_id):
-        return await message.reply("❌ **पहले हमारे चैनल को जॉइन करें!**\n"
-                                   f"👉 [Join Now](https://t.me/YourChannel)",
-                                   disable_web_page_preview=True)
+        invite_link = f"https://t.me/{FORCE_SUB_CHANNEL.lstrip('@')}"  # ✅ Channel username से लिंक बनाया
+        return await message.reply(
+            "❌ **पहले हमारे चैनल को जॉइन करें!**\n"
+            f"👉 [Join Now]({invite_link})",
+            disable_web_page_preview=True
+        )
 
     # ✅ User को Database में Save करो
     store_new_user(user_id, username)
@@ -29,5 +32,5 @@ async def handle_start(client, message):
     log_text = log_new_user_message.format(username=username, user_id=user_id)
     await client.send_message(LOG_CHANNEL, log_text)
 
-    # ✅ Start Command Execute करो
-    await start_command(client, message)
+    # ✅ Start Command Execute करो (अब messages.py से)
+    await message.reply(start_message)  # ✅ Directly start_message भेज रहे हैं
