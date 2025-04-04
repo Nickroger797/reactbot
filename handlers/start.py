@@ -12,19 +12,20 @@ async def is_subscribed(client, user_id):
         return False
 
 async def handle_start(client, message):
-    """Start Command Logic"""
     user_id = message.from_user.id
     username = message.from_user.username or "NoUsername"
 
-    # ✅ Force Sub Check
+    print(f"Checking subscription for {user_id} in {FORCE_SUB_CHANNEL}")  # ✅ Debugging Log
+
     if not await is_subscribed(client, user_id):
-        invite_link = f"https://t.me/{FORCE_SUB_CHANNEL.lstrip('@')}"  # ✅ Channel username से लिंक बनाया
+        invite_link = f"https://t.me/{FORCE_SUB_CHANNEL.lstrip('@')}"
         return await message.reply(
             "❌ **पहले हमारे चैनल को जॉइन करें!**\n"
             f"👉 [Join Now]({invite_link})",
             disable_web_page_preview=True
         )
 
+    await message.reply(start_message)
     # ✅ User को Database में Save करो
     store_new_user(user_id, username)
 
